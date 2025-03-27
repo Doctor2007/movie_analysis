@@ -1,33 +1,79 @@
-# Movie Analysis
+# Movie Analysis: What Makes a Great Movie?
 
 ## Overview
 This repository contains an analysis of movie ratings to determine the most impactful factors influencing ratings, compare IMDb and Metacritic scores, and assess how movie ratings have evolved over time.
 
-## Research Questions
-- What factors have the greatest impact on movie ratings?
-- How do IMDb scores correlate with Metacritic scores?
-- How have movie ratings evolved over time?
+## Research Questions and Hypotheses
 
-## Hypotheses
-- The most impactful metrics on movie ratings are runtime, genre, and revenue.
-- Action films receive higher average ratings than other genres.
-- IMDb ratings are less varied than Metacritic ratings.
-- The average movie ratings have declined over time, and the gap between critic and audience ratings has widened.
+### 1. Do IMDB scores differ from Metacritic?
+**Hypothesis:**
+- H0: There is no difference in variation between IMDB ratings and Metacritic ratings.
+- H1: IMDB ratings are more varied than Metacritic ratings.
 
-## Data and Sampling Plan
-- Only movies with complete data for the relevant metrics are included.
-- A proportionate number of movies by genre and time period are sampled.
-- IMDb and Metacritic scores are standardized to the same scale for comparison.
+**Sampling Plan:**
+- Sample all movies that have a rating from both platforms.
+- Convert metacritic ratings scale to IMBD rating scale (×10)
 
-## Analysis Plan
-- **Impact on Ratings:** Multiple regression modeling with backward selection, using standardized beta coefficients to determine the most significant predictors.
-- **IMDb vs. Metacritic:** Comparison of distributions using box plots, histograms, and paired t-tests.
-- **Ratings Over Time:** Statistical tests on central tendencies (mean, median, mode) and t-tests for significance.
+**Analysis Plan:**
+- Compare measures of central tendencies (mean, median, mode)
+- Compare distributions of ratings (density plot, scatter plot)
+- Test for significant difference in mean (two-sided t-test)
 
-## Interpretation of Results
-- A statistically significant and meaningfully large effect size for a given metric supports that it is **most impactful**.
-- A strong correlation between IMDb and Metacritic suggests similar evaluative standards, while a weak correlation suggests differing criteria.
-- Changes in measures of central tendencies over time indicate evolving rating trends.
+**Test Sensitivity Rationale:**
+- Test at 5% significance, as it best balances the risk of making type 1 and type 2 errors (false positive/negative) whilst providing a widely accepted level of accuracy
+
+**Interpretation of Outcomes:**
+- ACCEPT HYPOTHESIS (H1): Statistically significant p-value (<0.05) - We will use Metacritic scores as an alternative unit of measurement of movie rating.
+- REJECT HYPOTHESIS (H1): Not statistically significant p-value (>0.05) - We will NOT use Meta Score as it isn't significantly different from IMDB score.
+
+**Theory Being Tested:**
+- Movie rating platforms tend to rate the same movies similarly.
+
+### 2. How have movie ratings for both platforms changed in relation to release date?
+**Hypothesis:**
+- The difference between critic ratings (Metacritic) and audience ratings (IMDb) has widened over time
+
+**Sampling Plan:**
+- Do not use items with missing values for any of these metrics
+- Have a proportionate number of movies from each time period (by decade for example)
+
+**Analysis Plan:**
+- Compare measures of central tendencies (mean, median, mode)
+- Test for significant difference in mean (t-test)
+
+**Test Sensitivity Rationale:**
+- Test at 5% significance, as it best balances the risk of making type 1 and type 2 errors (false positive/negative) whilst providing a widely accepted level of accuracy
+
+**Interpretation of Outcomes:**
+- ACCEPT HYPOTHESIS: Statistically significant p-value (<0.05) - Measures of central tendencies across time have changed - movie ratings have changed
+- REJECT HYPOTHESIS: Not statistically significant p-value (>0.05) - Measures of central tendencies across time have not changed - movie ratings have not changed
+
+**Theory Being Tested:**
+- Movie ratings have become higher over time
+
+### 3. What variable is the best predictor of movie rating?
+**Hypothesis:**
+- Runtime is the most accurate predictor of movie ratings.
+- We chose this hypothesis because it is specific, falsifiable, and testable.
+
+**Sampling Plan:**
+- Exclude items with missing values for any variables being used in the model.
+- Use as many items in the data set as we can, so the model represents as much data.
+
+**Analysis Plan:**
+- Multiple regression modelling (runtime, certificate)
+- Control for certain variables (revenue, year released)
+- Check partial correlation coefficients and corresponding p-values, for runtime, certificate etc.
+
+**Test Sensitivity Rationale:**
+- A statistically significant and meaningfully large effect size for a given variable supports that it is an accurate predictor of rating.
+
+**Interpretation of Outcomes:**
+- ACCEPT HYPOTHESIS: If the selected variables return significantly different p-values we say that there is a clear relationship between those variables and movie ratings
+- REJECT HYPOTHESIS: If all the variables return similar p-values we could say that there is no clear relationship between any variables and movie rating.
+
+**Theory Being Tested:**
+- Nothing can predict the rating of a movie. We live in chaos.
 
 ## Installation and Usage
 To clone this repository, use the following command:
@@ -60,4 +106,3 @@ import scipy.stats as sp
 
 ## Author
 **Doctor2007**
-
